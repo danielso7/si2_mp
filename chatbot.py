@@ -3,31 +3,45 @@
 # Author: Daniel Oliveira
 # Mec. Number: 89208
 # Course: Sistemas Inteligentes II
-# Date: 24th May of 2022
+# Date: 17th June of 2022
 #
 
-## Building a conversation agent ##
+### Conversation Agent Backend Functions ###
 
-# Initial dependencies #
-import pickle
-import json
+## Import dependencies ##
+
+import pickle, json
 from utils import *
-from tensorflow.keras.models import * 
+from tensorflow.keras.models import *
 
-# Import Intents Dictionary #                          
-with open('intents.json', 'r') as jsondata:
-    intents = json.load(jsondata)
+# Create array to save user question tags #
 
-# Import Preprocessed Words and Classes List #
-words = pickle.load(open('words.plk','rb'))
-classes = pickle.load(open('classes.plk','rb'))
+inputarray = ["first"]
 
-# Import Trained Model #
-model = load_model('chatmodel.h5')
+## Import Natural Language Toolkit including WordNet, and NN Model ##
 
-# Run Conversational Agent #
-while True:
-    inputmsg = input("")
-    prediction = predictclass(inputmsg, model, words, classes)
-    result = findanswer(prediction,intents)
-    print(result)
+def importModel():
+
+    with open('intents.json', 'r') as jsondata:
+        intents = json.load(jsondata)
+    words = pickle.load(open('words.plk','rb'))
+    classes = pickle.load(open('classes.plk','rb'))
+    model = load_model('chatmodel.h5')
+
+    return intents, words, classes, model                     
+
+## Function to communicate with the chatbot ##
+# inputmsg - Question from user
+# id - User ID
+# name - User Name
+
+def communicate(inputmsg, id, name):
+
+    intents, words, classes, model = importModel()
+    prediction, flag = predictclass(inputmsg, model, words, classes)
+    result = findanswer(prediction, intents, inputmsg, inputarray, flag, id, name)
+    inputarray.append(prediction[0]['intent'])
+
+    return result
+    
+# Returns chatbot's answer for any user question #

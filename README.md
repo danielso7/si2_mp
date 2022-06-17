@@ -17,13 +17,49 @@ This project was developed in Universidade de Aveiro, within the course of Siste
 
 ## 2nd Deadline
 
-1. Increase the number of intents, making the chatbot usable for a company.
+1. Increased the number of intents, making the chatbot usable for a company.
 
-2. Develop the ability to accumulate info from the client
+2. Develop the ability to accumulate info from the client (current balance, state and name)
 
-3. Possible changes in neural network as the number of intents and sentences grow
+3. Develop the ability to answer user's requests (change password, buy/sell orders, change email)
 
-4. Creating a Flask app to run our chatbot in a website
+3. Created a Flask app to run our chatbot in a website
 
-5. Creating a HTML/Javascript script to make the chatbot user-friendly
+4. Created a HTML/Javascript script to make the chatbot user-friendly
 
+## Setup
+
+1. Clone this repository and create a virtual environment
+
+$ git clone 
+$ cd si2_mp
+$ python -m venv venv
+$ . venv/bin/activate
+
+2. Install dependencies and packages
+
+$ (venv) pip install flask flask_mysqldb ntlk pickle random time requests
+$ (venv) python
+>>> import nltk
+>>> nltk.download('punkt')
+
+## Run
+
+1. Train the chatbot
+
+$ (venv) python train.py
+
+2. Run the app
+
+$ (venv) python app.py
+
+3. Go to website
+
+http://localhost:5000/crexusers/
+
+4. Login using one of the users 
+
+Username: daniel
+Password: pass1
+
+5. Test the chatbot

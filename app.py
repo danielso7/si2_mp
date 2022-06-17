@@ -19,6 +19,8 @@ from chatbot import *
 
 app = Flask(__name__)
 
+app.secret_key = 'secret'
+
 # Database Connection Details #
 
 app.config['MYSQL_HOST'] = 'localhost'
